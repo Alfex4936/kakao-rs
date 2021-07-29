@@ -140,7 +140,7 @@ Result: {
 
 ## SimpleText, BasicCard, CommerceCard, Carousel
 
-자세한 사용법은 tests 폴더를 참고하세요.
+자세한 사용법은 [tests](https://github.com/Alfex4936/kakao-rs/tree/master/tests) 폴더를 참고하세요.
 
 ```rust
 use kakao_rs::components::basics::*;

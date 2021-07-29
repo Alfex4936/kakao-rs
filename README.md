@@ -3,6 +3,9 @@
     <img width="680" src="https://raw.githubusercontent.com/Alfex4936/kakaoChatbot-Ajou/main/imgs/chatbot.png">
 </p>
 
+[![kakao-rs on crates.io](https://img.shields.io/crates/v/kakao-rs.svg)](https://crates.io/crates/kakao-rs)
+[![kakao-rs on docs.rs](https://docs.rs/kakao-rs/badge.svg)](https://docs.rs/kakao-rs/0.1.0/kakao_rs/)
+
 <h2>카카오톡 챗봇 빌더 도우미</h2>
 <h3>Rust언어 전용</h3>
 </div>

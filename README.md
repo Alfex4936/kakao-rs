@@ -14,9 +14,13 @@
 
 Rust언어로 카카오 챗봇 서버를 만들 때 좀 더 쉽게 JSON 메시지 응답을 만들 수 있게 도와줍니다.
 
-SimpleText, ListCard, Carousel, BasicCard, CommerceCard JSON 데이터를 쉽게 만들 수 있도록 도와줍니다.
+SimpleText, SimpleImage, ListCard, Carousel, BasicCard, CommerceCard JSON 데이터를 쉽게 만들 수 있도록 도와줍니다.
 
 # 설치
+```toml
+[dependencies]
+kakao-rs = "0.2.1"
+```
 
 # 응답 타입별 아이템
 

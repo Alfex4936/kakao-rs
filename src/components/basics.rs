@@ -164,7 +164,7 @@ impl ThumbNail {
 /***** Main *****/
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
-/// 현재 ListCard, BasicCard, SimpleText, Carousel (Basic/CommerceCard) 지원
+/// 현재 ListCard, BasicCard, SimpleText, SimpleImage, Carousel (Basic/CommerceCard) 지원
 ///
 /// # Examples
 ///
@@ -213,6 +213,7 @@ pub enum Types {
     List(ListCard),
     Basic(BasicCard),
     Simple(SimpleText),
+    SimpleImg(SimpleImage),
     Carousel(Carousel),
 }
 
@@ -475,6 +476,70 @@ impl SimpleText {
 
     pub fn html(&self) -> String {
         format!("{}", self.simple_text.text)
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+/// [SimpleImage](https://i.kakao.com/docs/skill-response-format#simpleimage): imageUrl, altText
+///
+/// # Examples
+///
+/// Basic usage:
+///
+/// ```
+/// let mut result = Template::new();
+/// result.add_qr(QuickReply::new(
+///     "빠른 응답".to_string(),
+///     "빠른 응답 ㅋㅋ".to_string(),
+/// ));
+///
+/// let simple_img = SimpleImage::new(
+///     format!("http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg"),
+///     format!("보물상자입니다"));
+///
+/// result.add_output(simple_img.build());
+///
+/// ```
+pub struct SimpleImage {
+    simple_image: SimpleImageContent,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+pub struct SimpleImageContent {
+    image_url: String,
+    alt_text: String,
+}
+
+impl SimpleImage {
+    pub fn new(_url: String, _text: String) -> Self {
+        SimpleImage {
+            simple_image: SimpleImageContent {
+                image_url: _url,
+                alt_text: _text,
+            },
+        }
+    }
+
+    pub fn set_image(mut self, _link: String) -> Self {
+        self.simple_image.image_url = _link;
+        self
+    }
+
+    pub fn set_text(mut self, _text: String) -> Self {
+        self.simple_image.alt_text = _text;
+        self
+    }
+
+    pub fn build(self) -> Types {
+        Types::SimpleImg(self)
+    }
+
+    pub fn html(&self) -> String {
+        format!("{}", self.simple_image.image_url)
     }
 }
 

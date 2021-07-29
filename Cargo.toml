@@ -8,7 +8,7 @@ license = "MIT"
 repository = "https://github.com/Alfex4936/kakao-rs"
 readme = "README.md"
 categories = ["api-bindings"]
-keywords = ["kakao", "카카오톡", "챗봇", "카카오챗봇", "json"]
+keywords = ["kakao", "kakaotalk", "chatbot", "kakao chatbot", "json"]
 
 [[example]]
 name = "listcard"

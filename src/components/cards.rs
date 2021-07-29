@@ -115,13 +115,13 @@ impl BasicCard {
 /// Basic usage:
 ///
 /// ```
-/// let basic_card = BasicCard::new()
-///     .set_title("제목입니다.".to_string())
+/// let commerce_card = CommerceCard::new()
+///     .set_price(5000)
+///     .set_desc(format!("1 DESC"))
+///     .set_currency("WON".to_string())
 ///     .set_thumbnail(format!(
 ///         "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
 ///     ));
-///
-/// result.add_output(basic_card.build());
 ///
 /// ```
 pub struct CommerceCard {

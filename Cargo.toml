@@ -1,0 +1,23 @@
+[package]
+name = "kakao-rs"
+version = "0.1.0"
+edition = "2018"
+authors = ["Seok Won <ikr@kakao.com>"]
+description = "카카오 챗봇 JSON 제작 헬퍼 in Rust"
+license = "MIT"
+repository = "https://github.com/Alfex4936/kakao-rs"
+readme = "README.md"
+categories = ["api-bindings"]
+keywords = ["kakao", "카카오톡", "챗봇", "카카오챗봇", "json"]
+
+[[example]]
+name = "listcard"
+
+[lib]
+path = "src/lib.rs"
+bench = false
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_derive = "1.0"

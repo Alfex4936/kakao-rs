@@ -212,7 +212,9 @@ impl Template {
 pub enum Types {
     List(ListCard),
     Basic(BasicCard),
-    Simple(SimpleText),
+    Commerce(CommerceCard),
+    Item(ItemCard),
+    SimpleTxt(SimpleText),
     SimpleImg(SimpleImage),
     Carousel(Carousel),
 }
@@ -297,6 +299,17 @@ impl Carousel {
 
     pub fn add_card(&mut self, card: Card) {
         self.carousel.items.push(card);
+        // match &mut card {
+        //     Card::Basic(basic) => {
+        //         self.carousel.items.push(basic.content);
+        //     }
+        //     Card::Commerce(com) => {
+        //         self.carousel.items.push(com.content);
+        //     }
+        //     Card::Item(item) => {
+        //         self.carousel.items.push(item.content);
+        //     }
+        // }
     }
 
     pub fn build(self) -> Types {
@@ -471,7 +484,7 @@ impl SimpleText {
     }
 
     pub fn build(self) -> Types {
-        Types::Simple(self)
+        Types::SimpleTxt(self)
     }
 
     pub fn html(&self) -> String {

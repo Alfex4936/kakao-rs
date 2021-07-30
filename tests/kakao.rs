@@ -48,7 +48,7 @@ fn carousel_basic_card_test() {
                 "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
             ));
 
-        carousel.add_card(Card::Basic(basic_card));
+        carousel.add_card(basic_card.build_card());
     }
 
     result.add_output(carousel.build());
@@ -76,7 +76,7 @@ fn carousel_commerce_card_json() {
                 "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
             ));
 
-        carousel.add_card(Card::Commerce(commerce_card));
+        carousel.add_card(commerce_card.build_card());
     }
 
     result.add_output(carousel.build());
@@ -103,7 +103,7 @@ fn multiple_outputs_test() {
                 "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
             ));
 
-        carousel.add_card(Card::Basic(basic_card));
+        carousel.add_card(basic_card.build_card());
     }
 
     result.add_output(carousel.build());

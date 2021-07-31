@@ -21,7 +21,7 @@ JSON 데이터를 쉽게 만들 수 있도록 도와줍니다.
 # 설치
 ```toml
 [dependencies]
-kakao-rs = "0.2.1"
+kakao-rs = "0.2.2"
 ```
 
 # 응답 타입별 아이템

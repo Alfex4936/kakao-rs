@@ -3,11 +3,12 @@
 //! 카카오 챗봇 서버를 만들 때 좀 더 쉽게 JSON 메시지 응답을 만들 수 있게 도와줍니다.
 //!
 //! 지원하는 메시지 유형
-//!  - **SimpleText**
+//!  - **SimpleText && SimpleImage **
 //!  - **ListCard**
-//!  - **Carousel** (BasicCard || CommerceCard)
+//!  - **Carousel** (BasicCard || CommerceCard || ItemCard)
 //!  - **BasicCard**
 //!  - **CommerceCard**
+//!  - **ItemCard**
 //!
 //! ### Carousel(BasicCards) + SimpleText 예제
 //!
@@ -27,7 +28,7 @@
 //!             "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
 //!         ));
 //!
-//!     carousel.add_card(Card::Basic(basic_card));
+//!     carousel.add_card(basic_card.build_card());
 //! }
 //!
 //! result.add_output(carousel.build());

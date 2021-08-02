@@ -15,7 +15,7 @@ fn basic_card_test() {
 
     result.add_output(basic_card.build());
 
-    let serialized = r#"{"template":{"outputs":[{"basicCard":{"title":"제목입니다.","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg","fixedRatio":false}}}]},"version":"2.0"}"#;
+    let serialized = r#"{"template":{"outputs":[{"basicCard":{"title":"제목입니다.","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}}}]},"version":"2.0"}"#;
     assert_eq!(serialized, serde_json::to_string(&result).expect("Failed"));
 
     let deserialized: Template = serde_json::from_str(result.to_string().as_str()).unwrap();
@@ -49,7 +49,7 @@ fn item_card_test() {
 
     result.add_output(item_card.build());
 
-    let serialized = r#"{"template":{"outputs":[{"itemCard":{"thumbnail":{"imageUrl":"http://dev-mk.kakao.com/dn/bot/scripts/with_barcode_blue_1x1.png","fixedRatio":false,"width":800,"height":800},"imageTitle":{"title":"DOFQTK","description":"Boarding Number"},"itemList":[],"itemListAlignment":"right","itemListSummary":{"title":"total","description":"$4,032.54"},"title":"title","description":"desc","buttons":[{"label":"View Boarding Pass","action":"webLink","webLinkUrl":"https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)"}],"buttonLayout":"vertical"}}]},"version":"2.0"}"#;
+    let serialized = r#"{"template":{"outputs":[{"itemCard":{"thumbnail":{"imageUrl":"http://dev-mk.kakao.com/dn/bot/scripts/with_barcode_blue_1x1.png","width":800,"height":800},"imageTitle":{"title":"DOFQTK","description":"Boarding Number"},"itemList":[],"itemListAlignment":"right","itemListSummary":{"title":"total","description":"$4,032.54"},"title":"title","description":"desc","buttons":[{"label":"View Boarding Pass","action":"webLink","webLinkUrl":"https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)"}],"buttonLayout":"vertical"}}]},"version":"2.0"}"#;
     assert_eq!(serialized, serde_json::to_string(&result).expect("Failed"));
 
     let deserialized: Template = serde_json::from_str(result.to_string().as_str()).unwrap();

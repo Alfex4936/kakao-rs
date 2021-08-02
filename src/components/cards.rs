@@ -64,6 +64,7 @@ impl BasicCard {
     pub fn build(self) -> Types {
         Types::Basic(self)
     }
+    /// Carousel에 추가할 때 사용하세요.
     pub fn build_card(self) -> Card {
         Card::Basic(self.content)
     }
@@ -173,6 +174,7 @@ impl CommerceCard {
     pub fn build(self) -> Types {
         Types::Commerce(self)
     }
+    /// Carousel에 추가할 때 사용하세요.
     pub fn build_card(self) -> Card {
         Card::Commerce(self.content)
     }
@@ -281,6 +283,7 @@ impl ItemCard {
     pub fn build(self) -> Types {
         Types::Item(self)
     }
+    /// Carousel에 추가할 때 사용하세요.
     pub fn build_card(self) -> Card {
         Card::Item(self.content)
     }

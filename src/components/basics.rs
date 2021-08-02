@@ -116,11 +116,16 @@ pub struct ThumbNail {
     pub image_url: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub link: Option<Link>,
+    #[serde(skip_serializing_if = "is_false", default)]
     pub fixed_ratio: bool,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub width: Option<i32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub height: Option<i32>,
+}
+
+fn is_false(b: &bool) -> bool {
+    *b == false
 }
 
 impl ThumbNail {
@@ -263,7 +268,7 @@ impl Outputs {
 ///         "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
 ///     ));
 ///
-///     carousel.add_card(Card::Basic(basic_card));
+///     carousel.add_card(basic_card.build_card());
 /// }
 ///
 /// result.add_output(carousel.build());

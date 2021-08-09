@@ -22,10 +22,10 @@ pub enum Card {
 ///
 /// ```
 /// let basic_card = BasicCard::new()
-///     .set_title("제목입니다.".to_string())
-///     .set_thumbnail(format!(
+///     .set_title("제목입니다.")
+///     .set_thumbnail(
 ///         "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-///     ));
+///     );
 ///
 /// result.add_output(basic_card.build());
 ///
@@ -51,12 +51,12 @@ impl BasicCard {
         self
     }
 
-    pub fn set_desc(mut self, desc: String) -> Self {
-        self.content.description = Some(desc);
+    pub fn set_desc<S: Into<String>>(mut self, desc: S) -> Self {
+        self.content.description = Some(desc.into());
         self
     }
-    pub fn set_thumbnail(mut self, url: String) -> Self {
-        self.content.thumbnail.image_url = url;
+    pub fn set_thumbnail<S: Into<String>>(mut self, url: S) -> Self {
+        self.content.thumbnail.image_url = url.into();
         self
     }
 
@@ -69,17 +69,17 @@ impl BasicCard {
         Card::Basic(self.content)
     }
 
-    pub fn set_title(mut self, title: String) -> Self {
-        self.content.title = Some(title);
+    pub fn set_title<S: Into<String>>(mut self, title: S) -> Self {
+        self.content.title = Some(title.into());
         self
     }
 
-    pub fn set_description(mut self, desc: String) -> Self {
-        self.content.description = Some(desc);
+    pub fn set_description<S: Into<String>>(mut self, desc: S) -> Self {
+        self.content.description = Some(desc.into());
         self
     }
-    pub fn set_link(mut self, link: String) -> Self {
-        self.content.thumbnail.link = Some(Link { web: link });
+    pub fn set_link<S: Into<String>>(mut self, link: S) -> Self {
+        self.content.thumbnail.link = Some(Link { web: link.into() });
         self
     }
     pub fn set_fixed_ratio(mut self, fixed: bool) -> Self {
@@ -130,11 +130,11 @@ pub struct BasicCardContent {
 /// ```
 /// let commerce_card = CommerceCard::new()
 ///     .set_price(5000)
-///     .set_desc(format!("1 DESC"))
-///     .set_currency("WON".to_string())
-///     .set_thumbnail(format!(
+///     .set_desc("1 DESC")
+///     .set_currency("WON")
+///     .set_thumbnail(
 ///         "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-///     ));
+///     );
 ///
 /// ```
 pub struct CommerceCard {
@@ -162,12 +162,12 @@ impl CommerceCard {
         self
     }
 
-    pub fn set_desc(mut self, desc: String) -> Self {
-        self.content.description = desc;
+    pub fn set_desc<S: Into<String>>(mut self, desc: S) -> Self {
+        self.content.description = desc.into();
         self
     }
-    pub fn set_thumbnail(mut self, url: String) -> Self {
-        self.content.thumbnails.push(ThumbNail::new(url));
+    pub fn set_thumbnail<S: Into<String>>(mut self, url: S) -> Self {
+        self.content.thumbnails.push(ThumbNail::new(url.into()));
         self
     }
 
@@ -184,8 +184,8 @@ impl CommerceCard {
         self
     }
 
-    pub fn set_currency(mut self, currency: String) -> Self {
-        self.content.currency = currency;
+    pub fn set_currency<S: Into<String>>(mut self, currency: S) -> Self {
+        self.content.currency = currency.into();
         self
     }
 
@@ -239,22 +239,22 @@ pub struct CommerceCardContent {
 ///
 /// ```
 /// let item_card = ItemCard::new()
-///     .set_title("title".to_string())
-///     .set_desc("desc".to_string())
-///     .set_thumbnail(format!(
+///     .set_title("title")
+///     .set_desc("desc")
+///     .set_thumbnail(
 ///         "http://dev-mk.kakao.com/dn/bot/scripts/with_barcode_blue_1x1.png"
-///     ))
+///     )
 ///     .set_thumbnail_width(800)
 ///     .set_thumbnail_height(800)
-///     .set_image_title("DOFQTK".to_string())
-///     .set_image_desc("Boarding Number".to_string())
-///     .set_item_list_alignment("right".to_string())
-///     .set_item_list_summary("total".to_string(), "$4,032.54".to_string())
+///     .set_image_title("DOFQTK")
+///     .set_image_desc("Boarding Number")
+///     .set_item_list_alignment("right")
+///     .set_item_list_summary("total", "$4,032.54")
 ///     .add_button(Button::Link(
-///         LinkButton::new("View Boarding Pass".to_string())
-///             .set_link("https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)".to_string()),
+///         LinkButton::new("View Boarding Pass")
+///             .set_link("https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)"),
 ///     ))
-///     .set_button_layout("vertical".to_string());
+///     .set_button_layout("vertical");
 ///
 /// ```
 pub struct ItemCard {
@@ -292,55 +292,57 @@ impl ItemCard {
         self.content.buttons.push(btn);
         self
     }
-    pub fn set_title(mut self, _title: String) -> Self {
-        self.content.title = Some(_title);
+    pub fn set_title<S: Into<String>>(mut self, _title: S) -> Self {
+        self.content.title = Some(_title.into());
         self
     }
-    pub fn set_desc(mut self, desc: String) -> Self {
-        self.content.description = Some(desc);
+    pub fn set_desc<S: Into<String>>(mut self, desc: S) -> Self {
+        self.content.description = Some(desc.into());
         self
     }
-    pub fn set_button_layout(mut self, layout: String) -> Self {
-        self.content.button_layout = Some(layout);
+    pub fn set_button_layout<S: Into<String>>(mut self, layout: S) -> Self {
+        self.content.button_layout = Some(layout.into());
         self
     }
-    pub fn set_item_list_alignment(mut self, align: String) -> Self {
-        self.content.item_list_alignment = Some(align);
+    pub fn set_item_list_alignment<S: Into<String>>(mut self, align: S) -> Self {
+        self.content.item_list_alignment = Some(align.into());
         self
     }
-    pub fn set_item_list_summary(mut self, _title: String, _desc: String) -> Self {
+    pub fn set_item_list_summary<S: Into<String>>(mut self, _title: S, _desc: S) -> Self {
         self.content.item_list_summary = Some(ItemListSummary {
-            title: _title,
-            description: _desc,
+            title: _title.into(),
+            description: _desc.into(),
         });
         self
     }
-    pub fn set_thumbnail(mut self, url: String) -> Self {
+    pub fn set_thumbnail<S: Into<String>>(mut self, url: S) -> Self {
         self.content.thumbnail = Some(ThumbNail::new(url));
         self
     }
 
-    pub fn set_head(mut self, _title: String) -> Self {
-        self.content.head = Some(Head { title: _title });
+    pub fn set_head<S: Into<String>>(mut self, _title: S) -> Self {
+        self.content.head = Some(Head {
+            title: _title.into(),
+        });
         self
     }
 
-    pub fn set_image_title(mut self, _title: String) -> Self {
-        self.content.image_title = Some(ImageTitle::new(_title));
+    pub fn set_image_title<S: Into<String>>(mut self, _title: S) -> Self {
+        self.content.image_title = Some(ImageTitle::new(_title.into()));
         self
     }
 
-    pub fn set_image_desc(mut self, _desc: String) -> Self {
+    pub fn set_image_desc<S: Into<String>>(mut self, _desc: S) -> Self {
         if let Some(image) = &mut self.content.image_title {
-            image.description = Some(_desc);
+            image.description = Some(_desc.into());
         }
 
         self
     }
 
-    pub fn set_image(mut self, _url: String) -> Self {
+    pub fn set_image<S: Into<String>>(mut self, _url: S) -> Self {
         if let Some(image) = &mut self.content.image_title {
-            image.image_url = Some(_url);
+            image.image_url = Some(_url.into());
         }
 
         self
@@ -403,24 +405,24 @@ pub struct ImageTitle {
 }
 
 impl ImageTitle {
-    pub fn new(_title: String) -> Self {
+    pub fn new<S: Into<String>>(_title: S) -> Self {
         ImageTitle {
-            title: _title,
+            title: _title.into(),
             description: None,
             image_url: None,
         }
     }
 
-    pub fn set_title(&mut self, title: String) {
-        self.title = title;
+    pub fn set_title<S: Into<String>>(&mut self, title: S) {
+        self.title = title.into();
     }
 
-    pub fn set_desc(&mut self, desc: String) {
-        self.description = Some(desc);
+    pub fn set_desc<S: Into<String>>(&mut self, desc: S) {
+        self.description = Some(desc.into());
     }
 
-    pub fn set_image(&mut self, url: String) {
-        self.image_url = Some(url);
+    pub fn set_image<S: Into<String>>(&mut self, url: S) {
+        self.image_url = Some(url.into());
     }
 
     #[inline]

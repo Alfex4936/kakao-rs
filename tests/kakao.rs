@@ -4,12 +4,9 @@ use kakao_rs::components::cards::*;
 #[test]
 fn simple_text_test() {
     let mut result = Template::new();
-    result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
-    ));
+    result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 
-    let simple_text = SimpleText::new(format!("심플 텍스트 테스트"));
+    let simple_text = SimpleText::new("심플 텍스트 테스트");
     result.add_output(simple_text.build());
 
     let serialized = r#"{"template":{"outputs":[{"simpleText":{"text":"심플 텍스트 테스트"}}],"quickReplies":[{"action":"message","label":"빠른 응답","messageText":"빠른 응답 ㅋㅋ"}]},"version":"2.0"}"#;
@@ -19,12 +16,9 @@ fn simple_text_test() {
 #[test]
 fn simple_image_test() {
     let mut result = Template::new();
-    result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
-    ));
+    result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 
-    let simple_img = SimpleImage::new(format!("이미지 링크"), format!("이미지 오류"));
+    let simple_img = SimpleImage::new("이미지 링크", "이미지 오류");
     result.add_output(simple_img.build());
 
     let serialized = r#"{"template":{"outputs":[{"simpleImage":{"imageUrl":"이미지 링크","altText":"이미지 오류"}}],"quickReplies":[{"action":"message","label":"빠른 응답","messageText":"빠른 응답 ㅋㅋ"}]},"version":"2.0"}"#;
@@ -34,19 +28,16 @@ fn simple_image_test() {
 #[test]
 fn carousel_basic_card_test() {
     let mut result = Template::new();
-    result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
-    ));
+    result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 
     let mut carousel = Carousel::new().set_type(BasicCard::id());
 
     for i in 0..5 {
         let basic_card = BasicCard::new()
             .set_title(format!("{}번", i))
-            .set_thumbnail(format!(
-                "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-            ));
+            .set_thumbnail(
+                "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg",
+            );
 
         carousel.add_card(basic_card.build_card());
     }
@@ -60,10 +51,7 @@ fn carousel_basic_card_test() {
 #[test]
 fn carousel_commerce_card_json() {
     let mut result = Template::new();
-    result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
-    ));
+    result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 
     let mut carousel = Carousel::new().set_type(CommerceCard::id());
 
@@ -71,10 +59,10 @@ fn carousel_commerce_card_json() {
         let commerce_card = CommerceCard::new()
             .set_price(5000 + i)
             .set_desc(format!("{} DESC", i))
-            .set_currency("WON".to_string())
-            .set_thumbnail(format!(
-                "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-            ));
+            .set_currency("WON")
+            .set_thumbnail(
+                "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg",
+            );
 
         carousel.add_card(commerce_card.build_card());
     }
@@ -89,10 +77,7 @@ fn carousel_commerce_card_json() {
 #[test]
 fn multiple_outputs_test() {
     let mut result = Template::new();
-    result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
-    ));
+    result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 
     let mut carousel = Carousel::new().set_type(BasicCard::id());
 

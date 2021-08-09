@@ -25,27 +25,27 @@ pub struct ListItem {
 }
 
 impl ListItem {
-    pub fn new(_title: String) -> Self {
+    pub fn new<S: Into<String>>(_title: S) -> Self {
         ListItem {
-            title: _title,
+            title: _title.into(),
             description: None,
             image_url: None,
             link: None,
         }
     }
 
-    pub fn set_desc(mut self, desc: String) -> Self {
-        self.description = Some(desc);
+    pub fn set_desc<S: Into<String>>(mut self, desc: S) -> Self {
+        self.description = Some(desc.into());
         self
     }
 
-    pub fn set_image(mut self, url: String) -> Self {
-        self.image_url = Some(url);
+    pub fn set_image<S: Into<String>>(mut self, url: S) -> Self {
+        self.image_url = Some(url.into());
         self
     }
 
-    pub fn set_link(mut self, _url: String) -> Self {
-        self.link = Some(Link { web: _url });
+    pub fn set_link<S: Into<String>>(mut self, _url: S) -> Self {
+        self.link = Some(Link { web: _url.into() });
         self
     }
 }
@@ -65,10 +65,7 @@ impl ListItem {
 /// ```
 /// let mut result = Template::new();
 ///
-/// result.add_qr(QuickReply::new(
-///     "빠른 응답".to_string(),
-///     "빠른 응답 ㅋㅋ".to_string(),
-/// ));
+/// result.add_qr(QuickReply::new("오늘", "오늘 공지 보여줘"));
 ///
 /// ```
 pub struct QuickReply {
@@ -80,22 +77,22 @@ pub struct QuickReply {
 }
 
 impl QuickReply {
-    pub fn new(_label: String, _msg: String) -> Self {
+    pub fn new<S: Into<String>>(_label: S, _msg: S) -> Self {
         QuickReply {
-            label: _label,
-            message_text: _msg,
+            label: _label.into(),
+            message_text: _msg.into(),
             action: "message".to_string(),
             block_id: None,
         }
     }
 
-    pub fn set_block_id(mut self, id: String) -> Self {
-        self.block_id = Some(id);
+    pub fn set_block_id<S: Into<String>>(mut self, id: S) -> Self {
+        self.block_id = Some(id.into());
         self
     }
 
-    pub fn set_action(mut self, _action: String) -> Self {
-        self.action = _action;
+    pub fn set_action<S: Into<String>>(mut self, _action: S) -> Self {
+        self.action = _action.into();
         self
     }
 }
@@ -129,22 +126,22 @@ fn is_false(b: &bool) -> bool {
 }
 
 impl ThumbNail {
-    pub fn new(url: String) -> Self {
+    pub fn new<S: Into<String>>(url: S) -> Self {
         ThumbNail {
-            image_url: url,
+            image_url: url.into(),
             link: None,
             fixed_ratio: false,
             width: None,
             height: None,
         }
     }
-    pub fn set_link(mut self, url: String) -> Self {
-        self.link = Some(Link { web: url });
+    pub fn set_link<S: Into<String>>(mut self, url: S) -> Self {
+        self.link = Some(Link { web: url.into() });
         self
     }
 
-    pub fn set_image_url(mut self, url: String) -> Self {
-        self.image_url = url;
+    pub fn set_image_url<S: Into<String>>(mut self, url: S) -> Self {
+        self.image_url = url.into();
         self
     }
 
@@ -264,9 +261,7 @@ impl Outputs {
 /// for i in 0..5 {
 /// let basic_card = BasicCard::new()
 ///     .set_title(format!("{}번", i))
-///     .set_thumbnail(format!(
-///         "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-///     ));
+///     .set_thumbnail("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg");
 ///
 ///     carousel.add_card(basic_card.build_card());
 /// }
@@ -321,18 +316,22 @@ impl Carousel {
         Types::Carousel(self)
     }
 
-    pub fn set_type(mut self, _type: String) -> Self {
-        self.carousel.r#type = _type;
+    pub fn set_type<S: Into<String>>(mut self, _type: S) -> Self {
+        self.carousel.r#type = _type.into();
         self
     }
 
-    pub fn set_header_title(mut self, title: String) -> Self {
-        self.carousel.header.as_mut().unwrap().set_title(title);
+    pub fn set_header_title<S: Into<String>>(mut self, title: S) -> Self {
+        self.carousel
+            .header
+            .as_mut()
+            .unwrap()
+            .set_title(title.into());
         self
     }
 
-    pub fn set_header_desc(mut self, desc: String) -> Self {
-        self.carousel.header.as_mut().unwrap().set_desc(desc);
+    pub fn set_header_desc<S: Into<String>>(mut self, desc: S) -> Self {
+        self.carousel.header.as_mut().unwrap().set_desc(desc.into());
         self
     }
 
@@ -360,12 +359,12 @@ impl CarouselHeader {
         }
     }
 
-    pub fn set_title(&mut self, title: String) {
-        self.title = title;
+    pub fn set_title<S: Into<String>>(&mut self, title: S) {
+        self.title = title.into();
     }
 
-    pub fn set_desc(&mut self, desc: String) {
-        self.description = desc;
+    pub fn set_desc<S: Into<String>>(&mut self, desc: S) {
+        self.description = desc.into();
     }
 }
 /***** Carousel *****/
@@ -380,23 +379,23 @@ impl CarouselHeader {
 /// Basic usage:
 ///
 /// ```
-/// let mut list_card = ListCard::new(format!("리스트 카드 제목!")); // 제목
+/// let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 ///
 /// // 버튼 추가
-/// list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼".to_string())));
+/// list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼")));
 ///
 /// list_card.add_button(Button::Link(
-///     LinkButton::new("link label".to_string()).set_link("https://google.com".to_string()),
+///     LinkButton::new("link label").set_link("https://google.com"),
 /// ));
 /// list_card.add_button(Button::Share(
-///     ShareButton::new("share label".to_string()).set_msg("카톡에 보이는 메시지".to_string()),
+///     ShareButton::new("share label").set_msg("카톡에 보이는 메시지"),
 /// ));
 ///
 /// // 아이템 추가
 /// list_card.add_item(
-///     ListItem::new("title".to_string())
-///         .set_desc("description".to_string())
-///         .set_link("https://naver.com".to_string()),
+///     ListItem::new("title")
+///         .set_desc("description")
+///         .set_link("https://naver.com"),
 /// );
 ///
 /// // 빌드
@@ -417,9 +416,9 @@ pub struct ListCardContent {
 }
 
 impl ListCard {
-    pub fn new(_header: String) -> ListCard {
+    pub fn new<S: Into<String>>(_header: S) -> ListCard {
         ListCard {
-            list_card: ListCardContent::new(_header),
+            list_card: ListCardContent::new(_header.into()),
         }
     }
 
@@ -437,10 +436,12 @@ impl ListCard {
 }
 
 impl ListCardContent {
-    fn new(_title: String) -> ListCardContent {
+    fn new<S: Into<String>>(_title: S) -> ListCardContent {
         ListCardContent {
             buttons: Vec::new(),
-            header: Title { title: _title },
+            header: Title {
+                title: _title.into(),
+            },
             items: Vec::new(),
         }
     }
@@ -457,12 +458,9 @@ impl ListCardContent {
 ///
 /// ```
 /// let mut result = Template::new();
-/// result.add_qr(QuickReply::new(
-///     "빠른 응답".to_string(),
-///     "빠른 응답 ㅋㅋ".to_string(),
-/// ));
+/// result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 ///
-/// let simple_text = SimpleText::new(format!("심플 텍스트 테스트"));
+/// let simple_text = SimpleText::new("심플 텍스트 테스트");
 /// result.add_output(simple_text.build());
 ///
 /// ```
@@ -477,14 +475,14 @@ pub struct SimpleTextContent {
 }
 
 impl SimpleText {
-    pub fn new(_text: String) -> Self {
+    pub fn new<S: Into<String>>(_text: S) -> Self {
         SimpleText {
-            simple_text: SimpleTextContent { text: _text },
+            simple_text: SimpleTextContent { text: _text.into() },
         }
     }
 
-    pub fn set_text(mut self, _text: String) -> Self {
-        self.simple_text.text = _text;
+    pub fn set_text<S: Into<String>>(mut self, _text: S) -> Self {
+        self.simple_text.text = _text.into();
         self
     }
 
@@ -508,14 +506,11 @@ impl SimpleText {
 ///
 /// ```
 /// let mut result = Template::new();
-/// result.add_qr(QuickReply::new(
-///     "빠른 응답".to_string(),
-///     "빠른 응답 ㅋㅋ".to_string(),
-/// ));
+/// result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 ///
 /// let simple_img = SimpleImage::new(
-///     format!("http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg"),
-///     format!("보물상자입니다"));
+///     "http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg",
+///     "보물상자입니다");
 ///
 /// result.add_output(simple_img.build());
 ///
@@ -533,22 +528,22 @@ pub struct SimpleImageContent {
 }
 
 impl SimpleImage {
-    pub fn new(_url: String, _text: String) -> Self {
+    pub fn new<S: Into<String>>(_url: S, _text: S) -> Self {
         SimpleImage {
             simple_image: SimpleImageContent {
-                image_url: _url,
-                alt_text: _text,
+                image_url: _url.into(),
+                alt_text: _text.into(),
             },
         }
     }
 
-    pub fn set_image(mut self, _link: String) -> Self {
-        self.simple_image.image_url = _link;
+    pub fn set_image<S: Into<String>>(mut self, _link: S) -> Self {
+        self.simple_image.image_url = _link.into();
         self
     }
 
-    pub fn set_text(mut self, _text: String) -> Self {
-        self.simple_image.alt_text = _text;
+    pub fn set_text<S: Into<String>>(mut self, _text: S) -> Self {
+        self.simple_image.alt_text = _text.into();
         self
     }
 

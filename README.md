@@ -21,7 +21,7 @@ JSON 데이터를 쉽게 만들 수 있도록 도와줍니다.
 # 설치
 ```toml
 [dependencies]
-kakao-rs = "0.2.3"
+kakao-rs = "0.2.5"
 ```
 
 # 응답 타입별 아이템
@@ -30,16 +30,14 @@ Buttons: ShareButton (공유 버튼), LinkButton (링크 버튼), MsgButton (일
 
 Items: ListItem
 
-# 사용법 (Rocket 프레임워크 기준)
-
-왠만한 필드는 &str이 아닌 String 입니다.
+# 사용법
 
 ## 카카오 JSON 데이터 Bind
 
 예제) 유저 발화문 얻기: json.userRequest.utterance
 
 ```rust
-#[post("/end", format = "json", data = "<kakao>")]
+#[post("/end", format = "json", data = "<kakao>")]  // Rocket
 pub fn test(kakao: Json<Value>) -> String {
     println!("{}", kakao["userRequest"]["utterance"].as_str().unwrap()); // 발화문
     unimplemented!()
@@ -55,41 +53,35 @@ use kakao_rs::components::buttons::*;
 use kakao_rs::components::cards::*;
 
 fn main() {
-    let mut result = Template::new();
+  let mut result = Template::new();
 
-    // 빠른 응답
-    result.add_qr(QuickReply::new(
-        "오늘".to_string(),
-        "오늘 공지 보여줘".to_string(),
-    ));
-    result.add_qr(QuickReply::new(
-        "어제".to_string(),
-        "어제 공지 보여줘".to_string(),
-    ));
+  // 빠른 응답
+  result.add_qr(QuickReply::new("오늘", "오늘 공지 보여줘"));
+  result.add_qr(QuickReply::new("어제", "어제 공지 보여줘"));
 
-    let mut list_card = ListCard::new(format!("리스트 카드 제목!")); // 제목
+  let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 
-    list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼".to_string())));
+  list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼")));
 
-    list_card.add_button(Button::Link(
-        LinkButton::new("link label".to_string()).set_link("https://google.com".to_string()),
-    ));
-    list_card.add_button(Button::Share(
-        ShareButton::new("share label".to_string()).set_msg("카톡에 보이는 메시지".to_string()),
-    ));
+  list_card.add_button(Button::Link(
+    LinkButton::new("link label").set_link("https://google.com"),
+  ));
+  list_card.add_button(Button::Share(
+    ShareButton::new("share label").set_msg("카톡에 보이는 메시지"),
+  ));
 
-    list_card.add_item(
-        ListItem::new("title".to_string())
-            .set_desc("description".to_string())
-            .set_link("https://naver.com".to_string()),
-    );
+  list_card.add_item(
+    ListItem::new("title")
+      .set_desc("description")
+      .set_link("https://naver.com"),
+  );
 
-    result.add_output(list_card.build()); // moved list_card's ownership
+  result.add_output(list_card.build()); // moved list_card's ownership
 
-    println!(
-        "Result: {}",
-        serde_json::to_string_pretty(&result).expect("Failed")
-    );
+  println!(
+    "Result: {}",
+    serde_json::to_string_pretty(&result).expect("Failed")
+  );
 }
 
 /*
@@ -162,11 +154,11 @@ use std::matches;
 fn simple_text_test() {
     let mut result = Template::new();
     result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
+        "빠른 응답",
+        "빠른 응답 ㅋㅋ",
     ));
 
-    let simple_text = SimpleText::new(format!("심플 텍스트 테스트"));
+    let simple_text = SimpleText::new("심플 텍스트 테스트");
     result.add_output(simple_text.build());
 
     let serialized = r#"{"template":{"outputs":[{"simpleText":{"text":"심플 텍스트 테스트"}}],"quickReplies":[{"action":"message","label":"빠른 응답","messageText":"빠른 응답 ㅋㅋ"}]},"version":"2.0"}"#;
@@ -177,8 +169,8 @@ fn simple_text_test() {
 fn multiple_outputs_test() {
     let mut result = Template::new();
     result.add_qr(QuickReply::new(
-        "빠른 응답".to_string(),
-        "빠른 응답 ㅋㅋ".to_string(),
+        "빠른 응답",
+        "빠른 응답 ㅋㅋ",
     ));
 
     let mut carousel = Carousel::new().set_type(BasicCard::id());
@@ -186,16 +178,16 @@ fn multiple_outputs_test() {
     for i in 0..5 {
         let basic_card = BasicCard::new()
             .set_title(format!("{}번", i))
-            .set_thumbnail(format!(
+            .set_thumbnail(
                 "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-            ));
+            );
 
         carousel.add_card(basic_card.build_card());
     }
 
     result.add_output(carousel.build());
 
-    let simple_text = SimpleText::new(format!("심플 텍스트 테스트"));
+    let simple_text = SimpleText::new("심플 텍스트 테스트");
     result.add_output(simple_text.build());
 
     let serialized = r#"{"template":{"outputs":[{"carousel":{"type":"basicCard","items":[{"title":"0번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg",}},{"title":"1번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"2번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"3번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"4번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}}]}},{"simpleText":{"text":"심플 텍스트 테스트"}}],"quickReplies":[{"action":"message","label":"빠른 응답","messageText":"빠른 응답 ㅋㅋ"}]},"version":"2.0"}"#;

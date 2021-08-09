@@ -7,30 +7,24 @@ fn main() {
   let mut result = Template::new();
 
   // 빠른 응답
-  result.add_qr(QuickReply::new(
-    "오늘".to_string(),
-    "오늘 공지 보여줘".to_string(),
-  ));
-  result.add_qr(QuickReply::new(
-    "어제".to_string(),
-    "어제 공지 보여줘".to_string(),
-  ));
+  result.add_qr(QuickReply::new("오늘", "오늘 공지 보여줘"));
+  result.add_qr(QuickReply::new("어제", "어제 공지 보여줘"));
 
-  let mut list_card = ListCard::new(format!("리스트 카드 제목!")); // 제목
+  let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 
-  list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼".to_string())));
+  list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼"))); // 메시지 버튼
 
   list_card.add_button(Button::Link(
-    LinkButton::new("link label".to_string()).set_link("https://google.com".to_string()),
+    LinkButton::new("link label").set_link("https://google.com"), // 링크 버튼
   ));
   list_card.add_button(Button::Share(
-    ShareButton::new("share label".to_string()).set_msg("카톡에 보이는 메시지".to_string()),
+    ShareButton::new("share label").set_msg("카톡에 보이는 메시지"), // 공유 버튼
   ));
 
   list_card.add_item(
-    ListItem::new("title".to_string())
-      .set_desc("description".to_string())
-      .set_link("https://naver.com".to_string()),
+    ListItem::new("title")
+      .set_desc("description") // 설명
+      .set_link("https://naver.com"),
   );
 
   result.add_output(list_card.build()); // moved list_card's ownership

@@ -29,15 +29,15 @@ use std::collections::HashMap;
 /// Basic usage:
 ///
 /// ```
-/// let mut list_card = ListCard::new(format!("리스트 카드 제목!")); // 제목
+/// let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 ///
-/// list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼".to_string())));
+/// list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼")));
 ///
 /// list_card.add_button(Button::Link(
-///     LinkButton::new("link label".to_string()).set_link("https://google.com".to_string()),
+///     LinkButton::new("link label").set_link("https://google.com"),
 /// ));
 /// list_card.add_button(Button::Share(
-///     ShareButton::new("share label".to_string()).set_msg("카톡에 보이는 메시지".to_string()),
+///     ShareButton::new("share label").set_msg("카톡에 보이는 메시지"),
 /// ));
 ///
 /// ```
@@ -153,7 +153,7 @@ impl<'de> Deserialize<'de> for Button {
 ///
 /// ```
 ///
-/// Button::Call(CallButton::new("전화하기".to_string()).set_number("010-1234-5678".to_string()));
+/// Button::Call(CallButton::new("전화하기").set_number("010-1234-5678"));
 ///
 /// ```
 pub struct CallButton {
@@ -165,27 +165,27 @@ pub struct CallButton {
 }
 
 impl CallButton {
-    pub fn set_number(mut self, number: String) -> Self {
-        self.phone_number = number;
+    pub fn set_number<S: Into<String>>(mut self, number: S) -> Self {
+        self.phone_number = number.into();
         self
     }
 
-    pub fn new(label: String) -> Self {
+    pub fn new<S: Into<String>>(label: S) -> Self {
         CallButton {
-            label: label,
+            label: label.into(),
             action: "phone".to_string(),
             phone_number: "0".to_string(),
             message_text: None,
         }
     }
 
-    pub fn set_label(mut self, label: String) -> Self {
-        self.label = label;
+    pub fn set_label<S: Into<String>>(mut self, label: S) -> Self {
+        self.label = label.into();
         self
     }
 
-    pub fn set_msg(mut self, msg: String) -> Self {
-        self.message_text = Some(msg);
+    pub fn set_msg<S: Into<String>>(mut self, msg: S) -> Self {
+        self.message_text = Some(msg.into());
         self
     }
 }
@@ -201,7 +201,7 @@ impl CallButton {
 ///
 /// ```
 ///
-/// Button::Msg(MsgButton::new("그냥 텍스트 버튼".to_string()));
+/// Button::Msg(MsgButton::new("그냥 텍스트 버튼"));
 ///
 /// ```
 pub struct MsgButton {
@@ -212,21 +212,21 @@ pub struct MsgButton {
 }
 
 impl MsgButton {
-    pub fn new(label: String) -> Self {
+    pub fn new<S: Into<String>>(label: S) -> Self {
         MsgButton {
-            label: label,
+            label: label.into(),
             action: "message".to_string(),
             message_text: None,
         }
     }
 
-    pub fn set_label(mut self, label: String) -> Self {
-        self.label = label;
+    pub fn set_label<S: Into<String>>(mut self, label: S) -> Self {
+        self.label = label.into();
         self
     }
 
-    pub fn set_msg(mut self, msg: String) -> Self {
-        self.message_text = Some(msg);
+    pub fn set_msg<S: Into<String>>(mut self, msg: S) -> Self {
+        self.message_text = Some(msg.into());
         self
     }
 }
@@ -242,7 +242,7 @@ impl MsgButton {
 ///
 /// ```
 ///
-/// Button::Link(LinkButton::new("label".to_string()).set_link("https://google.com".to_string()))
+/// Button::Link(LinkButton::new("label").set_link("https://google.com"))
 ///
 /// ```
 pub struct LinkButton {
@@ -254,27 +254,27 @@ pub struct LinkButton {
 }
 
 impl LinkButton {
-    pub fn set_link(mut self, link: String) -> Self {
-        self.web_link_url = link;
+    pub fn set_link<S: Into<String>>(mut self, link: S) -> Self {
+        self.web_link_url = link.into();
         self
     }
 
-    pub fn new(label: String) -> Self {
+    pub fn new<S: Into<String>>(label: S) -> Self {
         LinkButton {
-            label: label,
+            label: label.into(),
             action: "webLink".to_string(),
             web_link_url: "".to_string(),
             message_text: None,
         }
     }
 
-    pub fn set_label(mut self, label: String) -> Self {
-        self.label = label;
+    pub fn set_label<S: Into<String>>(mut self, label: S) -> Self {
+        self.label = label.into();
         self
     }
 
-    pub fn set_msg(mut self, msg: String) -> Self {
-        self.message_text = Some(msg);
+    pub fn set_msg<S: Into<String>>(mut self, msg: S) -> Self {
+        self.message_text = Some(msg.into());
         self
     }
 }
@@ -290,7 +290,7 @@ impl LinkButton {
 ///
 /// ```
 ///
-/// Button::Share(ShareButton::new("label".to_string()).set_msg("발화문임".to_string()))
+/// Button::Share(ShareButton::new("label").set_msg("발화문임"))
 ///
 /// ```
 pub struct ShareButton {
@@ -301,21 +301,21 @@ pub struct ShareButton {
 }
 
 impl ShareButton {
-    pub fn new(label: String) -> Self {
+    pub fn new<S: Into<String>>(label: S) -> Self {
         ShareButton {
-            label: label,
+            label: label.into(),
             action: "share".to_string(),
             message_text: None,
         }
     }
 
-    pub fn set_label(mut self, label: String) -> Self {
-        self.label = label;
+    pub fn set_label<S: Into<String>>(mut self, label: S) -> Self {
+        self.label = label.into();
         self
     }
 
-    pub fn set_msg(mut self, msg: String) -> Self {
-        self.message_text = Some(msg);
+    pub fn set_msg<S: Into<String>>(mut self, msg: S) -> Self {
+        self.message_text = Some(msg.into());
         self
     }
 }

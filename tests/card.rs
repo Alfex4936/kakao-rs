@@ -8,10 +8,8 @@ fn basic_card_test() {
     let mut result = Template::new();
 
     let basic_card = BasicCard::new()
-        .set_title("제목입니다.".to_string())
-        .set_thumbnail(format!(
-            "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-        ));
+        .set_title("제목입니다.")
+        .set_thumbnail("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg");
 
     result.add_output(basic_card.build());
 
@@ -30,22 +28,22 @@ fn item_card_test() {
     let mut result = Template::new();
 
     let item_card = ItemCard::new()
-        .set_title("title".to_string())
-        .set_desc("desc".to_string())
+        .set_title("title")
+        .set_desc("desc")
         .set_thumbnail(format!(
             "http://dev-mk.kakao.com/dn/bot/scripts/with_barcode_blue_1x1.png"
         ))
         .set_thumbnail_width(800)
         .set_thumbnail_height(800)
-        .set_image_title("DOFQTK".to_string())
-        .set_image_desc("Boarding Number".to_string())
-        .set_item_list_alignment("right".to_string())
-        .set_item_list_summary("total".to_string(), "$4,032.54".to_string())
+        .set_image_title("DOFQTK")
+        .set_image_desc("Boarding Number")
+        .set_item_list_alignment("right")
+        .set_item_list_summary("total", "$4,032.54")
         .add_button(Button::Link(
-            LinkButton::new("View Boarding Pass".to_string())
-                .set_link("https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)".to_string()),
+            LinkButton::new("View Boarding Pass")
+                .set_link("https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)"),
         ))
-        .set_button_layout("vertical".to_string());
+        .set_button_layout("vertical");
 
     result.add_output(item_card.build());
 

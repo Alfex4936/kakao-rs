@@ -280,7 +280,7 @@ pub struct CarouselContent {
     r#type: String,
     // #[serde(default)]
     #[serde(skip_serializing_if = "Vec::is_empty", default)]
-    items: Vec<Card>, // TODO ItemCard, ListCard
+    items: Vec<Card>, // TODO ListCard
     // #[serde(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     header: Option<CarouselHeader>,

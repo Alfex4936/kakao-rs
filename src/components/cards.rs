@@ -143,6 +143,8 @@ pub struct CommerceCard {
 }
 
 impl CommerceCard {
+    /// CommerceCard를 초기화 합니다.
+    #[inline]
     pub fn new() -> Self {
         CommerceCard {
             content: CommerceCardContent {
@@ -171,10 +173,12 @@ impl CommerceCard {
         self
     }
 
+    #[inline]
     pub fn build(self) -> Types {
         Types::Commerce(self)
     }
     /// Carousel에 추가할 때 사용하세요.
+    #[inline]
     pub fn build_card(self) -> Card {
         Card::Commerce(self.content)
     }
@@ -263,6 +267,8 @@ pub struct ItemCard {
 }
 
 impl ItemCard {
+    /// ItemCard를 초기화 합니다.
+    #[inline]
     pub fn new() -> Self {
         ItemCard {
             content: ItemCardContent {
@@ -405,6 +411,8 @@ pub struct ImageTitle {
 }
 
 impl ImageTitle {
+    /// ImageTitle을 초기화 합니다.
+    #[inline]
     pub fn new<S: Into<String>>(_title: S) -> Self {
         ImageTitle {
             title: _title.into(),

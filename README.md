@@ -21,7 +21,7 @@ JSON 데이터를 쉽게 만들 수 있도록 도와줍니다.
 # 설치
 ```toml
 [dependencies]
-kakao-rs = "0.2.5"
+kakao-rs = "0.2"
 ```
 
 # 응답 타입별 아이템
@@ -139,7 +139,7 @@ Result: {
 */
 ```
 
-## SimpleText, BasicCard, CommerceCard, Carousel
+## SimpleText, SimpleImage, BasicCard, CommerceCard, Carousel
 
 Carousel에 Card를 추가할 때는 build_card()로 카드를 빌드하세요.
 

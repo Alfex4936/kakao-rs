@@ -25,6 +25,8 @@ pub struct ListItem {
 }
 
 impl ListItem {
+    /// ListItem(제목)
+    #[inline]
     pub fn new<S: Into<String>>(_title: S) -> Self {
         ListItem {
             title: _title.into(),
@@ -77,6 +79,8 @@ pub struct QuickReply {
 }
 
 impl QuickReply {
+    /// QuickReply(라벨, 발화문)
+    #[inline]
     pub fn new<S: Into<String>>(_label: S, _msg: S) -> Self {
         QuickReply {
             label: _label.into(),
@@ -126,6 +130,8 @@ fn is_false(b: &bool) -> bool {
 }
 
 impl ThumbNail {
+    /// ThumbNail(url)
+    #[inline]
     pub fn new<S: Into<String>>(url: S) -> Self {
         ThumbNail {
             image_url: url.into(),
@@ -185,6 +191,8 @@ pub struct Template {
 }
 
 impl Template {
+    /// new(): 모든 메시지는 Template에 담아서 build해야 합니다.
+    #[inline]
     pub fn new() -> Self {
         Template {
             template: Outputs::new(),
@@ -231,6 +239,7 @@ pub struct Outputs {
 }
 
 impl Outputs {
+    #[inline]
     fn new() -> Self {
         Outputs {
             outputs: Vec::new(),
@@ -287,6 +296,8 @@ pub struct CarouselContent {
 }
 
 impl Carousel {
+    /// new(): 기본적으로 basicCard 타입으로 설정됩니다.
+    #[inline]
     pub fn new() -> Self {
         Carousel {
             carousel: CarouselContent {
@@ -351,6 +362,8 @@ pub struct CarouselHeader {
 }
 
 impl CarouselHeader {
+    /// new(): CarouselHeader
+    #[inline]
     pub fn new() -> Self {
         CarouselHeader {
             title: "".to_string(),
@@ -416,6 +429,8 @@ pub struct ListCardContent {
 }
 
 impl ListCard {
+    /// ListCard(헤더 타이틀)
+    #[inline]
     pub fn new<S: Into<String>>(_header: S) -> ListCard {
         ListCard {
             list_card: ListCardContent::new(_header.into()),
@@ -436,6 +451,7 @@ impl ListCard {
 }
 
 impl ListCardContent {
+    #[inline]
     fn new<S: Into<String>>(_title: S) -> ListCardContent {
         ListCardContent {
             buttons: Vec::new(),
@@ -475,6 +491,8 @@ pub struct SimpleTextContent {
 }
 
 impl SimpleText {
+    /// SimpleText(내용)
+    #[inline]
     pub fn new<S: Into<String>>(_text: S) -> Self {
         SimpleText {
             simple_text: SimpleTextContent { text: _text.into() },
@@ -528,6 +546,8 @@ pub struct SimpleImageContent {
 }
 
 impl SimpleImage {
+    /// SimpleImage(url, 내용)
+    #[inline]
     pub fn new<S: Into<String>>(_url: S, _text: S) -> Self {
         SimpleImage {
             simple_image: SimpleImageContent {

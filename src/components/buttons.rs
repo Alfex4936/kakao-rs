@@ -109,6 +109,7 @@ impl Button {
     ///
     /// # CallButton(라벨, 번호)
     ///
+    #[inline]
     pub fn init_call_button<S: Into<String>>(number: S, label: S) -> Button {
         Button::Call(
             CallButton::new(label.into()).set_number(number.into()),
@@ -119,6 +120,7 @@ impl Button {
     ///
     /// # LinkButton(라벨, 링크)
     ///
+    #[inline]
     pub fn init_link_button<S: Into<String>>(link: S, label: S) -> Button {
         Button::Link(LinkButton::new(label.into()).set_link(link.into()))
     }
@@ -126,6 +128,7 @@ impl Button {
     ///
     /// # ShareButton(라벨)
     ///
+    #[inline]
     pub fn init_share_button<S: Into<String>>(label: S) -> Button {
         Button::Share(ShareButton::new(label))
     }
@@ -133,6 +136,7 @@ impl Button {
     ///
     /// # MsgButton(라벨)
     ///
+    #[inline]
     pub fn init_msg_button<S: Into<String>>(label: S) -> Button {
         Button::Msg(MsgButton::new(label))
     }
@@ -252,11 +256,8 @@ pub struct CallButton {
 }
 
 impl CallButton {
-    pub fn set_number<S: Into<String>>(mut self, number: S) -> Self {
-        self.phone_number = number.into();
-        self
-    }
-
+    /// new(라벨)
+    #[inline]
     pub fn new<S: Into<String>>(label: S) -> Self {
         CallButton {
             label: label.into(),
@@ -264,6 +265,11 @@ impl CallButton {
             phone_number: "0".to_string(),
             message_text: None,
         }
+    }
+
+    pub fn set_number<S: Into<String>>(mut self, number: S) -> Self {
+        self.phone_number = number.into();
+        self
     }
 
     pub fn set_label<S: Into<String>>(mut self, label: S) -> Self {
@@ -301,6 +307,8 @@ pub struct MsgButton {
 }
 
 impl MsgButton {
+    /// new(라벨)
+    #[inline]
     pub fn new<S: Into<String>>(label: S) -> Self {
         MsgButton {
             label: label.into(),
@@ -344,11 +352,8 @@ pub struct LinkButton {
 }
 
 impl LinkButton {
-    pub fn set_link<S: Into<String>>(mut self, link: S) -> Self {
-        self.web_link_url = link.into();
-        self
-    }
-
+    /// new(라벨)
+    #[inline]
     pub fn new<S: Into<String>>(label: S) -> Self {
         LinkButton {
             label: label.into(),
@@ -356,6 +361,11 @@ impl LinkButton {
             web_link_url: "".to_string(),
             message_text: None,
         }
+    }
+
+    pub fn set_link<S: Into<String>>(mut self, link: S) -> Self {
+        self.web_link_url = link.into();
+        self
     }
 
     pub fn set_label<S: Into<String>>(mut self, label: S) -> Self {
@@ -392,6 +402,8 @@ pub struct ShareButton {
 }
 
 impl ShareButton {
+    /// new(라벨)
+    #[inline]
     pub fn new<S: Into<String>>(label: S) -> Self {
         ShareButton {
             label: label.into(),

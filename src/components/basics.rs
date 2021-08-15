@@ -126,7 +126,7 @@ pub struct ThumbNail {
 }
 
 fn is_false(b: &bool) -> bool {
-    *b == false
+    !(*b)
 }
 
 impl ThumbNail {
@@ -509,7 +509,7 @@ impl SimpleText {
     }
 
     pub fn html(&self) -> String {
-        format!("{}", self.simple_text.text)
+        self.simple_text.text.to_string()
     }
 }
 
@@ -572,7 +572,7 @@ impl SimpleImage {
     }
 
     pub fn html(&self) -> String {
-        format!("{}", self.simple_image.image_url)
+        self.simple_image.image_url.to_string()
     }
 }
 

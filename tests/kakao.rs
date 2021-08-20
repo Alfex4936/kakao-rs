@@ -101,3 +101,27 @@ fn multiple_outputs_test() {
     // Carousel BasicCards 뒤 SimpleText 발화
     assert_eq!(serialized, result.to_string());
 }
+
+#[test]
+fn carousel_thumbnail_test() {
+    let mut result = Template::new();
+    result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
+
+    let mut carousel = Carousel::new();
+    carousel.set_header("오늘 공지 n개", "n개를 더 불러왔습니다!", "https://");
+
+    for i in 0..5 {
+        let basic_card = BasicCard::new()
+            .set_title(format!("{}번", i))
+            .set_thumbnail(
+                "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg",
+            );
+
+        carousel.add_card(basic_card.build_card());
+    }
+
+    result.add_output(carousel.build());
+
+    let serialized = r#"{"template":{"outputs":[{"carousel":{"type":"basicCard","items":[{"title":"0번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"1번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"2번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"3번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}},{"title":"4번","thumbnail":{"imageUrl":"http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"}}],"header":{"title":"오늘 공지 n개","description":"n개를 더 불러왔습니다!","thumbnail":{"imageUrl":"https://"}}}}],"quickReplies":[{"action":"message","label":"빠른 응답","messageText":"빠른 응답 ㅋㅋ"}]},"version":"2.0"}"#;
+    assert_eq!(serialized, result.to_string());
+}

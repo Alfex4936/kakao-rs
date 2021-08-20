@@ -3,7 +3,7 @@
 //! 카카오 챗봇 서버를 만들 때 좀 더 쉽게 JSON 메시지 응답을 만들 수 있게 도와줍니다.
 //!
 //! 지원하는 메시지 유형
-//!  - **SimpleText && SimpleImage **
+//!  - **SimpleText** && **SimpleImage**
 //!  - **ListCard**
 //!  - **Carousel** (BasicCard || CommerceCard || ItemCard)
 //!  - **BasicCard**

@@ -146,6 +146,10 @@ impl ThumbNail {
         self
     }
 
+    pub fn set_link_ref<S: Into<String>>(&mut self, url: S) {
+        self.link = Some(Link { web: url.into() });
+    }
+
     pub fn set_image_url<S: Into<String>>(mut self, url: S) -> Self {
         self.image_url = url.into();
         self
@@ -208,10 +212,12 @@ impl Template {
         self.template.quick_replies.push(qr);
     }
 
+    #[inline]
     pub fn to_string(&self) -> String {
         serde_json::to_string(self).unwrap()
     }
 
+    #[inline]
     pub fn build(&self) -> Value {
         json!(self)
     }
@@ -332,24 +338,35 @@ impl Carousel {
         self
     }
 
-    pub fn set_header_title<S: Into<String>>(mut self, title: S) -> Self {
+    /// set_header(제목, 설명, 썸네일 url)
+    pub fn set_header<S: Into<String>>(&mut self, title: S, desc: S, url: S) {
+        self.carousel.header = Some(CarouselHeader::new2(title, desc, url));
+    }
+
+    pub fn set_header_title<S: Into<String>>(&mut self, title: S) {
+        if self.carousel.header.is_none() {
+            self.carousel.header = Some(CarouselHeader::new());
+        }
         self.carousel
             .header
             .as_mut()
             .unwrap()
             .set_title(title.into());
-        self
     }
 
-    pub fn set_header_desc<S: Into<String>>(mut self, desc: S) -> Self {
+    pub fn set_header_desc<S: Into<String>>(&mut self, desc: S) {
+        if self.carousel.header.is_none() {
+            self.carousel.header = Some(CarouselHeader::new());
+        }
         self.carousel.header.as_mut().unwrap().set_desc(desc.into());
-        self
     }
 
-    // fn set_header_thumbnail(mut self, url: String) -> Self {
-    //     self.header.thumbnail.set_image_url(url);
-    //     self
-    // }
+    fn set_header_thumbnail(&mut self, url: String) {
+        if self.carousel.header.is_none() {
+            self.carousel.header = Some(CarouselHeader::new());
+        }
+        self.carousel.header.as_mut().unwrap().set_image_url(url);
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -372,12 +389,25 @@ impl CarouselHeader {
         }
     }
 
+    #[inline]
+    pub fn new2<S: Into<String>>(title: S, desc: S, url: S) -> Self {
+        CarouselHeader {
+            title: title.into(),
+            description: desc.into(),
+            thumbnail: ThumbNail::new(url.into()),
+        }
+    }
+
     pub fn set_title<S: Into<String>>(&mut self, title: S) {
         self.title = title.into();
     }
 
     pub fn set_desc<S: Into<String>>(&mut self, desc: S) {
         self.description = desc.into();
+    }
+
+    pub fn set_image_url<S: Into<String>>(&mut self, url: S) {
+        self.thumbnail.set_link_ref(url.into());
     }
 }
 /***** Carousel *****/

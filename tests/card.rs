@@ -1,6 +1,4 @@
-use kakao_rs::components::basics::*;
-use kakao_rs::components::buttons::*;
-use kakao_rs::components::cards::*;
+use kakao_rs::prelude::*;
 use std::matches;
 
 #[test]

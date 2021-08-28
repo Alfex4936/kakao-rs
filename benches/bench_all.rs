@@ -1,10 +1,6 @@
 use criterion::{criterion_group, criterion_main, Bencher, Criterion};
 
-extern crate kakao_rs;
-
-use kakao_rs::components::basics::*;
-use kakao_rs::components::buttons::*;
-use kakao_rs::components::cards::*;
+use kakao_rs::prelude::*;
 
 fn bench_listcard_0(b: &mut Bencher) {
     b.iter(|| {

@@ -1,5 +1,4 @@
-use kakao_rs::components::basics::*;
-use kakao_rs::components::cards::*;
+use kakao_rs::prelude::*;
 
 #[test]
 fn simple_text_test() {

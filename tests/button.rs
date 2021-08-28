@@ -1,4 +1,7 @@
-use kakao_rs::{Button, CallButton, LinkButton, MsgButton, ShareButton};
+// use kakao_rs::{Button, CallButton, LinkButton, MsgButton, ShareButton};
+
+use kakao_rs::prelude::*;
+
 use std::matches;
 
 #[test]

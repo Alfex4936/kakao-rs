@@ -15,25 +15,25 @@
 //! ```rust
 //! let mut result = Template::new();
 //! result.add_qr(QuickReply::new(
-//!     "빠른 응답".to_string(),
-//!     "빠른 응답 ㅋㅋ".to_string(),
+//!     "빠른 응답",
+//!     "빠른 응답 ㅋㅋ",
 //! ));
 //!
-//! let mut carousel = Carousel::new().set_type(BasicCard::id());
+//! let mut carousel = Carousel::new();
 //!
 //! for i in 0..5 {
 //!     let basic_card = BasicCard::new()
 //!         .set_title(format!("{}번", i))
-//!         .set_thumbnail(format!(
+//!         .set_thumbnail(
 //!             "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
-//!         ));
+//!         );
 //!
 //!     carousel.add_card(basic_card.build_card());
 //! }
 //!
 //! result.add_output(carousel.build());
 //!
-//! let simple_text = SimpleText::new(format!("심플 텍스트 테스트"));
+//! let simple_text = SimpleText::new("심플 텍스트 테스트");
 //! result.add_output(simple_text.build());
 //!
 //! ```
@@ -45,7 +45,8 @@
 extern crate serde_json;
 
 pub mod components;
+pub mod prelude;
 
-pub use crate::components::basics::*;
-pub use crate::components::buttons::*;
-pub use crate::components::cards::*;
+// pub use crate::components::basics::*;
+// pub use crate::components::buttons::*;
+// pub use crate::components::cards::*;

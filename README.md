@@ -48,9 +48,7 @@ pub fn test(kakao: Json<Value>) -> String {
 ```rust
 extern crate kakao_rs;
 
-use kakao_rs::components::basics::*;
-use kakao_rs::components::buttons::*;
-use kakao_rs::components::cards::*;
+use kakao_rs::prelude::*;
 
 fn main() {
   let mut result = Template::new();
@@ -146,8 +144,11 @@ Carousel에 Card를 추가할 때는 build_card()로 카드를 빌드하세요.
 자세한 사용법은 [tests](https://github.com/Alfex4936/kakao-rs/tree/master/tests) 폴더를 참고하세요.
 
 ```rust
-use kakao_rs::components::basics::*;
-use kakao_rs::components::cards::*;
+use kakao_rs::prelude::*;
+// 따로 import
+// use kakao_rs::components::basics::*;
+// use kakao_rs::components::buttons::*;
+// use kakao_rs::components::cards::*;
 use std::matches;
 
 #[test]

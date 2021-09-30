@@ -21,12 +21,12 @@ JSON 데이터를 쉽게 만들 수 있도록 도와줍니다.
 # 설치
 ```toml
 [dependencies]
-kakao-rs = "0.2"
+kakao-rs = "0.3"
 ```
 
 # 응답 타입별 아이템
 
-Buttons: ShareButton (공유 버튼), LinkButton (링크 버튼), MsgButton (일반 메시지만), CallButton (전화 버튼)
+ButtonType::Share (공유 버튼), ButtonType::Link (링크 버튼), ButtonType::Text (일반 메시지만), ButtonType::Call(전화 버튼)
 
 Items: ListItem
 
@@ -39,6 +39,12 @@ Items: ListItem
 ```rust
 #[post("/end", format = "json", data = "<kakao>")]  // Rocket
 pub fn test(kakao: Json<Value>) -> String {
+    println!("{}", kakao["userRequest"]["utterance"].as_str().unwrap()); // 발화문
+    unimplemented!()
+}
+
+#[post("/end")]
+pub async fn test(kakao: web::Json<Value>) -> impl Responder {  // actix
     println!("{}", kakao["userRequest"]["utterance"].as_str().unwrap()); // 발화문
     unimplemented!()
 }
@@ -59,18 +65,30 @@ fn main() {
 
   let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 
-  list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼")));
+  // Buttons
+  list_card.add_button(Button::new(ButtonType::Text).set_label("그냥 텍스트 버튼")); // 메시지 버튼
 
-  list_card.add_button(Button::Link(
-    LinkButton::new("link label").set_link("https://google.com"),
-  ));
-  list_card.add_button(Button::Share(
-    ShareButton::new("share label").set_msg("카톡에 보이는 메시지"),
-  ));
+  list_card.add_button(
+    Button::new(ButtonType::Link)
+      .set_label("link label")
+      .set_link("https://google.com"),
+  ); // 링크 버튼
+
+  list_card.add_button(
+    Button::new(ButtonType::Share)
+      .set_label("share label")
+      .set_msg("카톡에 보이는 메시지"),
+  ); // 공유 버튼
+
+  list_card.add_button(
+    Button::new(ButtonType::Call)
+      .set_label("call label")
+      .set_number("010-1234-5678"),
+  ); // 전화 버튼
 
   list_card.add_item(
     ListItem::new("title")
-      .set_desc("description")
+      .set_desc("description") // 설명
       .set_link("https://naver.com"),
   );
 
@@ -102,6 +120,11 @@ Result: {
               "label": "share label",
               "action": "share",
               "messageText": "카톡에 보이는 메시지"
+            },
+            {
+              "label": "call label",
+              "action": "phone",
+              "phoneNumber": "010-1234-5678"
             }
           ],
           "header": {

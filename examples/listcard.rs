@@ -11,14 +11,22 @@ fn main() {
 
   let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 
-  list_card.add_button(Button::Msg(MsgButton::new("그냥 텍스트 버튼"))); // 메시지 버튼
-
-  list_card.add_button(Button::Link(
-    LinkButton::new("link label").set_link("https://google.com"), // 링크 버튼
-  ));
-  list_card.add_button(Button::Share(
-    ShareButton::new("share label").set_msg("카톡에 보이는 메시지"), // 공유 버튼
-  ));
+  list_card.add_button(Button::new(ButtonType::Text).set_label("그냥 텍스트 버튼")); // 메시지 버튼
+  list_card.add_button(
+    Button::new(ButtonType::Link)
+      .set_label("link label")
+      .set_link("https://google.com"),
+  ); // 링크 버튼
+  list_card.add_button(
+    Button::new(ButtonType::Share)
+      .set_label("share label")
+      .set_msg("카톡에 보이는 메시지"),
+  ); // 공유 버튼
+  list_card.add_button(
+    Button::new(ButtonType::Call)
+      .set_label("call label")
+      .set_number("010-1234-5678"),
+  ); // 전화 버튼
 
   list_card.add_item(
     ListItem::new("title")
@@ -54,6 +62,11 @@ Result: {
               "label": "share label",
               "action": "share",
               "messageText": "카톡에 보이는 메시지"
+            },
+            {
+              "label": "call label",
+              "action": "phone",
+              "phoneNumber": "010-1234-5678"
             }
           ],
           "header": {

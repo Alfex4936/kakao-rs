@@ -6,9 +6,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 pub enum Card {
-    Basic(BasicCardContent),
+    Basic(BasicCardContent), // 144 bytes
     Commerce(CommerceCardContent),
-    Item(ItemCardContent),
+    Item(ItemCardContent), // 360 bytes: Too big?
 }
 
 /***** BasicCard *****/
@@ -33,6 +33,12 @@ pub enum Card {
 pub struct BasicCard {
     #[serde(rename = "basicCard")]
     pub content: BasicCardContent,
+}
+
+impl Default for BasicCard {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl BasicCard {
@@ -140,6 +146,12 @@ pub struct BasicCardContent {
 pub struct CommerceCard {
     #[serde(rename = "commerceCard")]
     pub content: CommerceCardContent,
+}
+
+impl Default for CommerceCard {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl CommerceCard {
@@ -264,6 +276,12 @@ pub struct CommerceCardContent {
 pub struct ItemCard {
     #[serde(rename = "itemCard")]
     pub content: ItemCardContent,
+}
+
+impl Default for ItemCard {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl ItemCard {

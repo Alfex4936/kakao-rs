@@ -194,6 +194,12 @@ pub struct Template {
     pub version: String,
 }
 
+impl Default for Template {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Template {
     /// new(): 모든 메시지는 Template에 담아서 build해야 합니다.
     #[inline]
@@ -301,6 +307,12 @@ pub struct CarouselContent {
     header: Option<CarouselHeader>,
 }
 
+impl Default for Carousel {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Carousel {
     /// new(): 기본적으로 basicCard 타입으로 설정됩니다.
     #[inline]
@@ -361,7 +373,7 @@ impl Carousel {
         self.carousel.header.as_mut().unwrap().set_desc(desc.into());
     }
 
-    fn set_header_thumbnail(&mut self, url: String) {
+    pub fn set_header_thumbnail(&mut self, url: String) {
         if self.carousel.header.is_none() {
             self.carousel.header = Some(CarouselHeader::new());
         }
@@ -376,6 +388,12 @@ pub struct CarouselHeader {
     title: String,
     description: String,
     thumbnail: ThumbNail,
+}
+
+impl Default for CarouselHeader {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl CarouselHeader {

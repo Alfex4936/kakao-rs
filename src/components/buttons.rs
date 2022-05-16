@@ -14,6 +14,8 @@ use std::collections::HashMap;
 ///
 /// # Example
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 ///
 /// list_card.add_button(Button::new(ButtonType::Text).set_label("그냥 텍스트 버튼")); // 메시지 버튼

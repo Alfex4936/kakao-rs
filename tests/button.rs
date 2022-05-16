@@ -13,7 +13,7 @@ fn button_de_serialize_test() {
     //     .set_link("https://");
     // let d = Button::new(ButtonType::Text)
     //     .set_label("그냥 버튼")
-    //     .set_msg("발화문임");
+    //     .set_msg("발화문임"); 
 
     let data = r#"[{"label":"CALL LABEL","action":"phone","phoneNumber":"0","messageText":"MESSAGE"},{"label":"SHARE LABEL","action":"share"},{"label":"MSG LABEL","action":"message"},{"label":"LABEL","action":"webLink","webLinkUrl":"https://"}]"#;
     let buttons: Vec<Button> = serde_json::from_str(data).unwrap();

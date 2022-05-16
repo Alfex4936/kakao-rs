@@ -21,6 +21,11 @@ pub enum Card {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::components::basics::Template;
+/// use kakao_rs::components::cards::BasicCard;
+///
+/// let mut result = Template::new();
+///
 /// let basic_card = BasicCard::new()
 ///     .set_title("제목입니다.")
 ///     .set_thumbnail(
@@ -134,6 +139,11 @@ pub struct BasicCardContent {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::components::basics::Template;
+/// use kakao_rs::components::cards::CommerceCard;
+///
+/// let mut result = Template::new();
+///
 /// let commerce_card = CommerceCard::new()
 ///     .set_price(5000)
 ///     .set_desc("1 DESC")
@@ -142,6 +152,7 @@ pub struct BasicCardContent {
 ///         "http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg"
 ///     );
 ///
+/// result.add_output(commerce_card.build());
 /// ```
 pub struct CommerceCard {
     #[serde(rename = "commerceCard")]
@@ -254,6 +265,12 @@ pub struct CommerceCardContent {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::components::basics::Template;
+/// use kakao_rs::components::cards::ItemCard;
+/// use kakao_rs::components::buttons::{Button, ButtonType};
+///
+/// let mut result = Template::new();
+///
 /// let item_card = ItemCard::new()
 ///     .set_title("title")
 ///     .set_desc("desc")
@@ -266,11 +283,13 @@ pub struct CommerceCardContent {
 ///     .set_image_desc("Boarding Number")
 ///     .set_item_list_alignment("right")
 ///     .set_item_list_summary("total", "$4,032.54")
-///     .add_button(Button::Link(
-///         LinkButton::new("View Boarding Pass")
+///     .add_button(Button::new(ButtonType::Text)
+///             .set_label("View Boarding Pass")
 ///             .set_link("https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)"),
-///     ))
+///     )
 ///     .set_button_layout("vertical");
+///
+/// result.add_output(item_card.build());
 ///
 /// ```
 pub struct ItemCard {

@@ -65,6 +65,8 @@ impl ListItem {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut result = Template::new();
 ///
 /// result.add_qr(QuickReply::new("오늘", "오늘 공지 보여줘"));
@@ -183,6 +185,8 @@ impl ThumbNail {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut result = Template::new();
 /// result.add_qr(...)
 /// result.add_output(...)
@@ -277,6 +281,8 @@ impl Outputs {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut carousel = Carousel::new().set_type(BasicCard::id());
 ///
 /// for i in 0..5 {
@@ -440,6 +446,8 @@ impl CarouselHeader {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut list_card = ListCard::new("리스트 카드 제목!"); // 제목
 ///
 /// // 버튼 추가
@@ -521,6 +529,8 @@ impl ListCardContent {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut result = Template::new();
 /// result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 ///
@@ -571,6 +581,8 @@ impl SimpleText {
 /// Basic usage:
 ///
 /// ```
+/// use kakao_rs::prelude::*;
+///
 /// let mut result = Template::new();
 /// result.add_qr(QuickReply::new("빠른 응답", "빠른 응답 ㅋㅋ"));
 ///

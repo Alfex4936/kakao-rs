@@ -283,7 +283,7 @@ pub struct CommerceCardContent {
 ///     .set_image_desc("Boarding Number")
 ///     .set_item_list_alignment("right")
 ///     .set_item_list_summary("total", "$4,032.54")
-///     .add_button(Button::new(ButtonType::Text)
+///     .add_button(Button::new(ButtonType::Link)
 ///             .set_label("View Boarding Pass")
 ///             .set_link("https://namu.wiki/w/%EB%82%98%EC%97%B0(TWICE)"),
 ///     )

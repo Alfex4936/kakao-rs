@@ -38,7 +38,6 @@
 //!
 //! ```
 //!
-#![feature(proc_macro_hygiene, decl_macro)]
 #![allow(unused_variables)]
 
 #[macro_use]

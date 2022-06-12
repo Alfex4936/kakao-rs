@@ -1,7 +1,7 @@
 [package]
 name = "kakao-rs"
-version = "0.3.2"
-edition = "2018"
+version = "0.3.3"
+edition = "2021"
 authors = ["Seok Won <ikr@kakao.com>"]
 description = "카카오 챗봇 JSON 제작 헬퍼 in Rust"
 license = "MIT"

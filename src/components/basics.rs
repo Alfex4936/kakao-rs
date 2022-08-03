@@ -2,6 +2,7 @@ use crate::components::buttons::*;
 use crate::components::cards::*;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::fmt;
 
 /***** Items *****/
 #[derive(Serialize, Deserialize, Debug)]
@@ -223,13 +224,14 @@ impl Template {
     }
 
     #[inline]
-    pub fn to_string(&self) -> String {
-        serde_json::to_string(self).unwrap()
-    }
-
-    #[inline]
     pub fn build(&self) -> Value {
         json!(self)
+    }
+}
+
+impl fmt::Display for Template {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}\n", serde_json::to_string(self).unwrap())
     }
 }
 

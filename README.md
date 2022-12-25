@@ -220,3 +220,23 @@ fn multiple_outputs_test() {
     assert_eq!(serialized, result.to_string());
 }
 ```
+
+# TODO
+
+How to make codes more maintainable?
+
+```rust
+    pub fn set_field<T: Into<String>>(mut self, field: &str, value: T) -> Self {
+        match field {
+            "desc" | "description" => self.content.description = Some(value.into()),
+            "title" => self.content.title = Some(value.into()),
+            "thumbnail" => self.content.thumbnail.image_url = value.into(),
+            "link" => self.content.thumbnail.link = Some(Link { web: value.into() }),
+            "fixed_ratio" => self.content.thumbnail.fixed_ratio = value.into(),
+            "width" => self.content.thumbnail.width = Some(value.into()),
+            "height" => self.content.thumbnail.height = Some(value.into()),
+            _ => {}
+        }
+        self
+    }
+```

@@ -223,6 +223,9 @@ fn multiple_outputs_test() {
 
 # TODO
 
+- use PyO3 to export this library in Python
+
+
 How to make codes more maintainable?
 
 ```rust

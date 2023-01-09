@@ -231,7 +231,7 @@ impl Template {
 
 impl fmt::Display for Template {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}\n", serde_json::to_string(self).unwrap())
+        writeln!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }
 

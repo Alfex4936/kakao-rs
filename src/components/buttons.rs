@@ -42,11 +42,11 @@ use std::collections::HashMap;
 pub struct Button {
     label: String,
     action: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Button::is_string_dead")]
     phone_number: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Button::is_string_dead")]
     web_link_url: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Button::is_string_dead")]
     message_text: Option<String>,
 }
 
@@ -92,6 +92,13 @@ impl Button {
     pub fn set_link<S: Into<String>>(mut self, link: S) -> Self {
         self.web_link_url = Some(link.into());
         self
+    }
+
+    fn is_string_dead(field: &Option<String>) -> bool {
+        match field {
+            Some(s) => s.is_empty(),
+            None => true,
+        }
     }
 }
 

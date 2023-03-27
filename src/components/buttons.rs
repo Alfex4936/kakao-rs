@@ -110,11 +110,12 @@ impl<'de> Deserialize<'de> for Button {
         let text: Map<String, Value> = Map::deserialize(deserializer)?;
         let mut keys = HashMap::new();
         for (key, value) in &text {
-            let _value = value.as_str().unwrap();
-            keys.insert(key.to_owned(), _value.to_string());
+            if let Some(value_str) = value.as_str() {
+                keys.insert(key.to_owned(), value_str.to_string());
+            }
         }
 
-        let mut button: Button = match text.get("action").unwrap().as_str() {
+        let mut button = match text.get("action").and_then(|v| v.as_str()) {
             Some("webLink") => Button::new(ButtonType::Link),
             Some("share") => Button::new(ButtonType::Share),
             Some("message") => Button::new(ButtonType::Text),

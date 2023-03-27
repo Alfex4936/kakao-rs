@@ -13,7 +13,7 @@ fn button_de_serialize_test() {
     //     .set_link("https://");
     // let d = Button::new(ButtonType::Text)
     //     .set_label("그냥 버튼")
-    //     .set_msg("발화문임"); 
+    //     .set_msg("발화문임");
 
     let data = r#"[{"label":"CALL LABEL","action":"phone","phoneNumber":"0","messageText":"MESSAGE"},{"label":"SHARE LABEL","action":"share"},{"label":"MSG LABEL","action":"message"},{"label":"LABEL","action":"webLink","webLinkUrl":"https://"}]"#;
     let buttons: Vec<Button> = serde_json::from_str(data).unwrap();
@@ -25,23 +25,18 @@ fn button_de_serialize_test() {
 #[test]
 fn button_only_serialize_test() {
     // 일반적으로 deserialize 할 일은 없음
-    let mut buttons: Vec<Button> = vec![];
-    buttons.push(
+    let buttons: Vec<Button> = vec![
         Button::new(ButtonType::Call)
             .set_label("전화하기")
             .set_number("911"),
-    );
-    buttons.push(Button::new(ButtonType::Share).set_label("공유하기"));
-    buttons.push(
+        Button::new(ButtonType::Share).set_label("공유하기"),
         Button::new(ButtonType::Link)
             .set_label("링크열기")
             .set_link("https://"),
-    );
-    buttons.push(
         Button::new(ButtonType::Text)
             .set_label("그냥 버튼")
             .set_msg("발화문임"),
-    );
+    ];
     // Serialize
     let data = r#"[{"label":"전화하기","action":"phone","phoneNumber":"911"},{"label":"공유하기","action":"share"},{"label":"링크열기","action":"webLink","webLinkUrl":"https://"},{"label":"그냥 버튼","action":"message","messageText":"발화문임"}]"#;
     assert_eq!(

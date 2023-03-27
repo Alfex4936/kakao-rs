@@ -28,9 +28,7 @@ fn item_card_test() {
     let item_card = ItemCard::new()
         .set_title("title")
         .set_desc("desc")
-        .set_thumbnail(format!(
-            "http://dev-mk.kakao.com/dn/bot/scripts/with_barcode_blue_1x1.png"
-        ))
+        .set_thumbnail("http://dev-mk.kakao.com/dn/bot/scripts/with_barcode_blue_1x1.png".to_string())
         .set_thumbnail_width(800)
         .set_thumbnail_height(800)
         .set_image_title("DOFQTK")

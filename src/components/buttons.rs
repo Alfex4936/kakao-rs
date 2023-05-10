@@ -74,6 +74,40 @@ impl Button {
         }
     }
 
+    pub fn text<S: Into<String>>(label: S) -> Self {
+        Button {
+            action: "message".into(),
+            label: label.into(),
+            ..Default::default()
+        }
+    }
+
+    pub fn link<S: Into<String>>(label: S, url: S) -> Self {
+        Button {
+            action: "webLink".into(),
+            label: label.into(),
+            web_link_url: Some(url.into()),
+            ..Default::default()
+        }
+    }
+
+    pub fn share<S: Into<String>>(label: S) -> Self {
+        Button {
+            action: "share".into(),
+            label: label.into(),
+            ..Default::default()
+        }
+    }
+
+    pub fn call<S: Into<String>>(label: S, number: S) -> Self {
+        Button {
+            action: "phone".into(),
+            label: label.into(),
+            phone_number: Some(number.into()),
+            ..Default::default()
+        }
+    }
+
     pub fn set_number<S: Into<String>>(mut self, number: S) -> Self {
         self.phone_number = Some(number.into());
         self

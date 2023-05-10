@@ -26,16 +26,10 @@ fn button_de_serialize_test() {
 fn button_only_serialize_test() {
     // 일반적으로 deserialize 할 일은 없음
     let buttons: Vec<Button> = vec![
-        Button::new(ButtonType::Call)
-            .set_label("전화하기")
-            .set_number("911"),
-        Button::new(ButtonType::Share).set_label("공유하기"),
-        Button::new(ButtonType::Link)
-            .set_label("링크열기")
-            .set_link("https://"),
-        Button::new(ButtonType::Text)
-            .set_label("그냥 버튼")
-            .set_msg("발화문임"),
+        Button::call("전화하기", "911"),
+        Button::share("공유하기"),
+        Button::link("링크열기", "https://"),
+        Button::text("그냥 버튼").set_msg("발화문임"),
     ];
     // Serialize
     let data = r#"[{"label":"전화하기","action":"phone","phoneNumber":"911"},{"label":"공유하기","action":"share"},{"label":"링크열기","action":"webLink","webLinkUrl":"https://"},{"label":"그냥 버튼","action":"message","messageText":"발화문임"}]"#;
